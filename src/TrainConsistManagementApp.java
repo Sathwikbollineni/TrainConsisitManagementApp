@@ -28,30 +28,22 @@ public class TrainConsistManagementApp {
         bogieList.add(new Bogie("AC Chair", 56));
         bogieList.add(new Bogie("First Class", 24));
         bogieList.add(new Bogie("Sleeper", 70));
-        bogieList.add(new Bogie("AC Chair", 60));
 
-        System.out.println("UC9 - Group Bogies by Type");
+        System.out.println("UC10 - Count Total Seats in Train");
         System.out.println("===========================================");
 
-        System.out.println("\nAll Bogies:");
+        System.out.println("\nBogies in Train:");
         for (Bogie b : bogieList) {
             System.out.println(b.getName() + " -> " + b.getCapacity());
         }
 
-        Map<String, List<Bogie>> grouped = bogieList
+        int total = bogieList
                 .stream()
-                .collect(Collectors.groupingBy(Bogie::getName));
+                .map(b -> b.getCapacity())
+                .reduce(0, Integer::sum);
 
-        System.out.println("\nGrouped Bogies:\n");
+        System.out.println("\nTotal Seating Capacity of Train: " + total);
 
-        for (String key : grouped.keySet()) {
-            System.out.println("Bogie Type: " + key);
-            for (Bogie b : grouped.get(key)) {
-                System.out.println("  Capacity -> " + b.getCapacity());
-            }
-            System.out.println();
-        }
-
-        System.out.println("UC9 grouping completed...");
+        System.out.println("\nUC10 aggregation completed...");
     }
 }
